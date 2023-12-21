@@ -1,0 +1,32 @@
+
+-- Table: Person
+CREATE TABLE Person (
+    id INT PRIMARY KEY,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    email VARCHAR(255),
+    phone VARCHAR(20)
+);
+
+-- Table: Account
+CREATE TABLE Account (
+    id int auto_increment,
+    Account_Number VARCHAR(20) PRIMARY KEY,
+    accountHolder INT,
+    FOREIGN KEY (accountHolder) REFERENCES Person(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    balance DOUBLE,
+    NextAccountNumber varchar(20) 
+);
+
+-- Table: BankTransaction
+CREATE TABLE BankTransaction (
+    amount DOUBLE,
+    date DATE,
+    type VARCHAR(10) CHECK (type IN ('DEPOT', 'RETRAIT', 'TRANSFERT')),
+    sourceAccountNumber VARCHAR(20),
+    FOREIGN KEY (sourceAccountNumber) REFERENCES Account(Account_Number) ON DELETE CASCADE ON UPDATE CASCADE,
+    targetAccountNumber VARCHAR(20),
+    FOREIGN KEY (targetAccountNumber) REFERENCES Account(Account_Number) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
